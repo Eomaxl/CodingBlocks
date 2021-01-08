@@ -76,4 +76,15 @@ public class BinaryTree {
             this.display(node.right);
         }
     }
+
+    private int height(Node node) {
+        //Base Condition
+        if(node == null){
+            return -1;
+        }
+        int lheight = this.height(node.left);
+        int rheight = this.height(node.right);
+
+        return Math.max(lheight,rheight) + 1;
+    }
 }
