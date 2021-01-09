@@ -1,6 +1,7 @@
 package com.lecture12.Tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -147,4 +148,50 @@ public class BinaryTree {
         }
         return res;
     }
+
+    public ArrayList<Integer> postOrder(Node root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root == null) {
+            return res;
+        }
+        Stack<Node> s = new Stack<Node>();
+        s.push(root);
+        Node prev = null;
+        while(!s.isEmpty()) {
+            Node curr = s.peek();
+            if(prev == null || prev.left == curr || prev.right == curr) {
+                if(curr.left != null) {
+                    s.push(curr.left);
+                } else if(curr.right != null) {
+                    s.push(curr.right);
+                }
+            } else if ( curr.left == prev) {
+                if(curr.right != null) {
+                    s.push(curr.right);
+                }
+            }  else {
+                res.add(curr.data);
+                s.pop();
+            }
+           prev = curr;
+        }
+        return res;
+    }
+
+    public void levelOrder() {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.add(this.root);
+        while(!queue.isEmpty()) {
+            Node rv = queue.removeFirst();
+            System.out.println(rv.data+" , ");
+            if(rv.left != null){
+                queue.addLast(rv.left);
+            }
+            if(rv.right != null) {
+                queue.addLast(rv.right);
+            }
+        }
+        System.out.println("END");
+    }
+
 }
