@@ -1,6 +1,8 @@
 package com.lecture12.Tree;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BinaryTree {
     private class Node {
@@ -86,5 +88,63 @@ public class BinaryTree {
         int rheight = this.height(node.right);
 
         return Math.max(lheight,rheight) + 1;
+    }
+
+    public void PreOrder(Node root) {
+        if(root != null){
+            System.out.print(root.data+" ");
+        }
+        PreOrder(root.left);
+        PreOrder(root.right);
+    }
+
+    public ArrayList<Integer> preOrderTraversal(Node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if(root == null){
+            return res;
+        }
+        Stack<Node> s = new Stack<Node>();
+        s.push(root);
+        while(!s.isEmpty()){
+            Node temp = s.pop();
+            res.add(temp.data);
+
+            if(temp.right != null)
+                s.push(temp.right);
+
+            if(temp.left != null)
+                s.push(temp.left);
+        }
+        return res;
+    }
+
+    public void InOrder(Node root){
+        if(root != null){
+            InOrder(root.left);
+            System.out.println(root.data);
+            InOrder(root.right);
+        }
+    }
+
+    public ArrayList<Integer> inOrder(Node root){
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        Stack<Node> s = new Stack<Node>();
+        Node currNode = root;
+        boolean done = false;
+        while(!done) {
+            if(currNode != null){
+                s.push(currNode);
+                currNode = currNode.left;
+            } else {
+                if(s.isEmpty()) {
+                    done = true;
+                } else {
+                    currNode = s.pop();
+                    res.add(currNode.data);
+                    currNode = currNode.right;
+                }
+            }
+        }
+        return res;
     }
 }
