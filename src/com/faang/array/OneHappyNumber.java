@@ -15,7 +15,6 @@ public class OneHappyNumber {
 
     public static int update(int num) {
         int updatedNum = 0;
-
         while ( num > 0 ) {
             int digit = num % 10;
             updatedNum = updatedNum + digit * digit;
